@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CORE_DIRECTIVES } from '@angular/common';
-import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
-  selector: 'rh-navbar',
-  templateUrl: '/app/navbar/navbar.Component.html',
-  directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES]
+  selector: 'rh-profile',
+  templateUrl: '/app/profile/profile.Component.html',
+  directives: [CORE_DIRECTIVES]
 })
-export class NavbarComponent implements OnInit{ 
+export class ProfileComponent implements OnInit{ 
 
   public auth : any;
 
@@ -20,16 +19,7 @@ export class NavbarComponent implements OnInit{
     });
   }
 
-  login(){
-    this.af.auth.login();
-  }
-
-
-  logout(){
-    this.af.auth.logout();
-  }
-
-  ngOnInit(){
+  ngOnInit(){ 
     console.log("Init called for NavbarComponent");
   }
 }

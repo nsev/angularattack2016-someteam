@@ -2,9 +2,13 @@ nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse
   .container-fluid
     .navbar-header
       a.navbar-brand() ReviewHub
+    //- ul.nav.navbar-nav
+    //-   li
+    //-     a([routerLink]="['/profile']") Profile
     ul.nav.navbar-nav.navbar-right
       li(*ngIf="auth != null")
-        a.hoverhand {{auth.github.username}}
+        a([routerLink]="['/profile']") {{auth.github.username}} 
+          span.fa.fa-user(aria-hidden="true")
       li.hoverhand([ngSwitch]="auth != null")
         template([ngSwitchWhen]="true")
           a((click)="logout()") Logout
