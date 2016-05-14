@@ -3,5 +3,12 @@ nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse
     .navbar-header
       a.navbar-brand() ReviewHub
     ul.nav.navbar-nav.navbar-right
-      li
-        a((click)="login()") Login
+      li(*ngIf="auth != null")
+        a.hoverhand {{auth.github.username}}
+      li.hoverhand([ngSwitch]="auth != null")
+        template([ngSwitchWhen]="true")
+          a((click)="logout()") Logout
+            span.fa.fa-sign-out.pull-right.fa-logout-align(aria-hidden="true")
+        template([ngSwitchWhen]="false")
+          a((click)="login()") Login
+            span.fa.fa-2x.fa-github.pull-right.fa-login-align(aria-hidden="true")
