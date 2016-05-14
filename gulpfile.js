@@ -19,7 +19,7 @@ var paths = {
   ],
   ts: [src + '/**/*.ts'],
   jade: [src + '/**/*.jade'],
-  styl: [src + 'assets/styles/main.styl']
+  styl: [src + '/styles.styl']
 };
 
 var webroot = 'www';

@@ -4,13 +4,16 @@
     'app':                        '/app', // 'dist',
     'rxjs':                       '/node_modules/rxjs',
     'angular2-in-memory-web-api': '/node_modules/angular2-in-memory-web-api',
-    '@angular':                   '/node_modules/@angular'
+    '@angular':                   '/node_modules/@angular',
+    'firebase':                   '/node_modules/firebase/lib/firebase-web.js',
+    'angularfire2':               '/node_modules/angularfire2',
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { app: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { defaultExtension: 'js' },
+    'angularfire2':               { main: 'angularfire2.js', defaultExtension: 'js' }
   };
   var packageNames = [
     '@angular/common',
