@@ -1,0 +1,23 @@
+html
+  head
+    title HubReview
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet" href="styles.css")
+    script(src="https://rumblex.s3.amazonaws.com/starter/es6-shim/es6-shim.min.js")
+    script(src="https://rumblex.s3.amazonaws.com/starter/zone.js/dist/zone.js")
+    script(src="https://rumblex.s3.amazonaws.com/starter/reflect-metadata/Reflect.js")
+    script(src="https://rumblex.s3.amazonaws.com/starter/rxjs/bundles/Rx.umd.js")
+    script(src="https://rumblex.s3.amazonaws.com/starter/@angular/core/core.umd.js")
+    script(src="https://rumblex.s3.amazonaws.com/starter/@angular/common/common.umd.js")
+    script(src="https://rumblex.s3.amazonaws.com/starter/@angular/compiler/compiler.umd.js")
+    script(src="https://rumblex.s3.amazonaws.com/starter/@angular/platform-browser/platform-browser.umd.js")
+    script(src="https://rumblex.s3.amazonaws.com/starter/@angular/platform-browser-dynamic/platform-browser-dynamic.umd.js")
+    //- load
+    //- script(src="main.js")
+    //- systemjs
+    script(src="systemjs.config.js")
+    script.
+        System.import('src').catch(function(err){ console.error(err); });
+
+  body
+    hr-app Loading ...
