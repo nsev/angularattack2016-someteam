@@ -6,7 +6,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'rh-navbar',
-  templateUrl: '/app/navbar/navbar.Component.html',
+  templateUrl: '/app/navbar/navbar.component.html',
   directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class NavbarComponent implements OnInit{ 

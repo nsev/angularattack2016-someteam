@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var jade = require('gulp-jade');
 var stylus = require('gulp-stylus');
+var merge = require('merge-stream');
 var del = require('del');
 var surge = require('gulp-surge');
 var ts = require('gulp-typescript');
@@ -14,7 +15,9 @@ var noderoot = "node_modules";
 var paths = {
   js: [src + '/**/*.js'],
   vendorjs: [
-    noderoot + "/**"
+    noderoot + "/@angular/**/*.js",
+    noderoot + "/rxjs/**/*.js",
+    noderoot + "/font-awesome/**/*.js"
     // noderoot + '/rxjs',
   ],
   ts: [src + '/**/*.ts'],
@@ -22,22 +25,60 @@ var paths = {
   styl: [src + '/styles.styl']
 };
 
+var folders = [
+  // {name : '@angular', path: noderoot + "/@angular/**/*.js"},
+  {name : 'rxjs', path: noderoot + "/rxjs/**/*.js"},
+  {name : 'font-awesome', path: noderoot + "/font-awesome/**/*"}
+];
+
 var webroot = 'www';
 var dests = {
   js: webroot,
-  vendorjs: webroot + '/' + noderoot ,
+  vendorjs: webroot + '/vendor',
   html: webroot,
   styl: webroot
 };
+
+function copyAngular(){
+  return copyVendorJsFolder(noderoot + "/@angular/**/*.js", dests.vendorjs + "/@angular");
+}
+
+function copyAngularFire(){
+  return copyVendorJsFolder(noderoot + "/angularfire2/**/*.js", dests.vendorjs + "/angularfire2");
+}
+
+function copyRxjs(){
+  return copyVendorJsFolder(noderoot + "/rxjs/**/*.js", dests.vendorjs + "/rxjs");
+}
+
+function copyFA(){
+  return copyVendorJsFolder(noderoot + "/font-awesome/**/*", dests.vendorjs + "/font-awesome");
+}
+
+function copyFB(){
+  return copyVendorJsFolder(noderoot + "/firebase/**/*", dests.vendorjs + "/firebase");
+}
+
+function copyVendorJsFolder(path, dest) {
+  return gulp.src(path, {baseDir: "./"})
+    .pipe(gulp.dest(dest));
+}
+
+//for some reason, copying failed if useing loop, probably userfail, but done liek this now....
+gulp.task('copy-vendor-js', [], function() {
+  var result = copyAngular();
+  var merged = merge(result, copyRxjs());
+  merged.add(copyFA());
+  merged.add(copyFB());
+  merged.add(copyAngularFire());
+
+  return merged;
+});
 
 gulp.task('clean', function() {
   return del([webroot]);
 });
 
-gulp.task('copy-vendor-js', [], function() {
-  return gulp.src(paths.vendorjs)
-    .pipe(gulp.dest(dests.vendorjs));
-});
 
 gulp.task('copy-js', [], function() {
   return gulp.src(paths.js)
