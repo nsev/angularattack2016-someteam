@@ -1,10 +1,10 @@
 nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse
   .container-fluid
     .navbar-header
-      a.navbar-brand([routerLink]="['/review']") ReviewHub
+      a.navbar-brand([routerLink]="['/']") ReviewHub
     ul.nav.navbar-nav
       li
-        a([routerLink]="['/review']") Projects
+        a([routerLink]="['/']") Projects
     ul.nav.navbar-nav.navbar-right
       li(*ngIf="auth != null")
         a([routerLink]="['/profile']") {{auth.github.username}} 

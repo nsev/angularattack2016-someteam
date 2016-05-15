@@ -20,7 +20,7 @@ import {ProjectListComponent} from './project/project_list.component';
 })
 @Routes([
   {path: '/profile',       component: ProfileComponent},
-  {path: '/review',          component: ProjectListComponent},
+  {path: '/',          component: ProjectListComponent}, // , useAsDefault: true}, // coming soon
   {path: '/projects/:id',      component: ProjectComponent}
 ])
 export class AppComponent implements OnInit{
