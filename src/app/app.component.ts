@@ -6,6 +6,8 @@ import { AngularFire } from 'angularfire2';
 
 import {NavbarComponent} from './navbar/navbar.component';
 import {ProfileComponent} from './profile/profile.component';
+import {ProjectComponent} from './project/project.component';
+import {ProjectListComponent} from './project/project_list.component';
 
 @Component({
   selector: 'rh-app',
@@ -17,9 +19,9 @@ import {ProfileComponent} from './profile/profile.component';
   providers : [AngularFire]
 })
 @Routes([
-  {path: '/profile',       component: ProfileComponent}
-  // {path: '/feed',          component: ReviewFeedComponent},
-  // {path: '/feed/:id',      component: HeroDetailComponent}
+  {path: '/profile',       component: ProfileComponent},
+  {path: '/review',          component: ProjectListComponent},
+  {path: '/projects/:id',      component: ProjectComponent}
 ])
 export class AppComponent implements OnInit{
 

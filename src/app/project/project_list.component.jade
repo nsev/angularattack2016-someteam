@@ -1,0 +1,24 @@
+section#project-list
+  .row
+    .col-sm-10.col-sm-offset-1
+      .form-group
+        input.form-control(id="project-list_filter", name="project-list_filter")
+  .row
+    .col-sm-10.col-sm-offset-1
+      ul.list-gropup.project-list-group
+        li.list-group-item.project-list-group-item(*ngFor="let project of projects")
+          .row
+            .col-xs-10
+              .row.list-row
+                .col-xs-12
+                  .list-row-heading Name {{project.name}}
+              .row.list-row
+                .col-xs-12
+                  span Location :    
+                  a(href="{{project.url}}", tager="_blank") {{project.url}}
+              .row.list-row
+                .col-xs-12
+                  span.label.label-primary.list-row-lb(*ngFor="let lang of objToArray(project.langs)") {{lang.value}}
+                  span.label.label-primary.list-row-lb(*ngFor="let frame of objToArray(project.frames)") {{frame.value}}
+            .col-xs-2
+              span.fa.fa-caret-right.fa-5x.pull-right

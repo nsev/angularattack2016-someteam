@@ -11,12 +11,16 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class NavbarComponent implements OnInit{ 
 
-  public auth : any;
+  auth : any;
 
   constructor(public af : AngularFire){
     this.af.auth.subscribe((auth) => {
-      console.log(auth)
       this.auth = auth;
+      this.af.list('/users').update(auth.uid, {
+        provider: auth.provider,
+        name: auth.github.displayName,
+        username: auth.github.username
+      });
     });
   }
 

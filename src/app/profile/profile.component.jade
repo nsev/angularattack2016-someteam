@@ -1,9 +1,47 @@
 section#profile.container-fluid
-  section.auth-info
-    .media
-      .media-left
-        a
-          img.media-object.media-image(src="{{auth.github.profileImageURL}}")
-      .media-body
-        h4 {{auth.github.username}}
-        span {{auth.github.displayName}}
+  .row
+    .col-md-5
+      section.auth-info
+        .media
+          .media-left
+            a
+              img.media-object.media-image(src="{{auth.github.profileImageURL}}")
+          .media-body
+            h4 {{auth.github.username}}
+            span {{auth.github.displayName}}
+  .row
+    .col-md-6
+      section#user-projects
+        .panel.panel-default
+          .panel-heading Own projects setup for review
+          .panel-body([ngSwitch]="ownProjects == null") 
+            template([ngSwitchWhen]="true")
+              button.btn.btn-default.btn-success(type="button", (click)="addProject()") Add a project!
+            template([ngSwitchWhen]="false")
+              ul
+                li(*ngFor="")
+    .col-md-6
+      section#user-review-targets
+        .panel.panel-default
+          .panel-heading What do you want to review?
+          .panel-body([ngSwitch]="loading.langs || loading.frames") 
+            template([ngSwitchWhen]="false")
+              .row
+                .col-sm-6
+                  h4 Languages
+                  div.checkbox(*ngFor="let lang of langs")
+                    label
+                      input(type="checkbox", id="lang_cb_{{lang.$key}}", name="lang_cb_{{lang.$key}}") 
+                      span {{lang.$value}}
+                .col-sm-6
+                  h4 Frames and libraries
+                  div.checkbox(*ngFor="let frame of frames")
+                    label
+                      input(type="checkbox", id="frame_cb_{{frame.$key}}", name="frame_cb_{{frame.$key}}") 
+                      span {{frame.$value}}
+            template([ngSwitchWhen]="true")
+              div.center
+                span.fa.fa-2x.fa-circle-o-notch.fa-spin(aria-hidden="true")
+        
+
+
