@@ -10,6 +10,9 @@ section.container-fluid#project
         .form-group
           label(for="project_url") Location of the project
           input.form-control(id="project_url", name="project_url", placeholder="Enter the url for the project", required, [(ngModel)]="project.url", ngControl="url")
+        .form-group
+          label(for="project_desc") Location of the project
+          textarea.form-control(id="project_desc", name="project_desc", placeholder="Enter a description for the project. Remember to inform where you want your comments!", required, [(ngModel)]="project.desc", ngControl="desc", rows=12)
         .row
           .col-md-6
              h4 Languages

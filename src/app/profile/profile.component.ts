@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit{
 
   subscribeToUser(uid){
     this.loading.user = true;
-    this.af.database.object('/users/' + this.auth.uid).subscribe((user:any)=>{
+    this.af.database.object('/users/' + uid).subscribe((user:any)=>{
       this.user = user;
       this.vm.langs = this.user.langs || {};
       this.vm.frames = this.user.frames || {};

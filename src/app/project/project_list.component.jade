@@ -1,24 +1,34 @@
 section#project-list
-  .row
+  .row.list-row
     .col-sm-10.col-sm-offset-1
-      .form-group
-        input.form-control(id="project-list_filter", name="project-list_filter")
+      p.text-info Showing results for tags below. Change the settings in your profile.
+      div(*ngIf="!loading.user && !loading.langs && !loading.frames")
+        span.label.label-primary.list-row-lb(*ngFor="let lang of enabledFilters(user.langs)") {{lang.$value}}
+        span.label.label-primary.list-row-lb(*ngFor="let frame of enabledFilters(user.frames)") {{frame.$value}}
   .row
-    .col-sm-10.col-sm-offset-1
-      ul.list-gropup.project-list-group
-        li.list-group-item.project-list-group-item(*ngFor="let project of projects")
-          .row
-            .col-xs-10
-              .row.list-row
-                .col-xs-12
-                  .list-row-heading Name {{project.name}}
-              .row.list-row
-                .col-xs-12
-                  span Location :    
-                  a(href="{{project.url}}", tager="_blank") {{project.url}}
-              .row.list-row
-                .col-xs-12
-                  span.label.label-primary.list-row-lb(*ngFor="let lang of objToArray(project.langs)") {{lang.value}}
-                  span.label.label-primary.list-row-lb(*ngFor="let frame of objToArray(project.frames)") {{frame.value}}
-            .col-xs-2
-              span.fa.fa-caret-right.fa-5x.pull-right
+    .col-sm-10.col-sm-offset-1([ngSwitch]="loading.projects || loading.user || loading.langs || loading.frames")
+      template([ngSwitchWhen]="false")
+        ul.list-gropup.project-list-group
+          li.list-group-item.project-list-group-item(*ngFor="let project of filteredProjects(projects)")
+            .row
+              .col-xs-10
+                .row.list-row
+                  .col-xs-12
+                    .list-row-heading {{project.name}}
+                .row.list-row
+                  .col-xs-12
+                    span Location :    
+                    a(href="{{project.url}}", target="_blank") {{project.url}}
+                .row.list-row
+                  .col-xs-12
+                    p {{project.desc}}
+                .row.list-row
+                  .col-xs-12
+                    span.label.label-primary.list-row-lb(*ngFor="let lang of objToArray(project.langs)") {{lang.value}}
+                    span.label.label-primary.list-row-lb(*ngFor="let frame of objToArray(project.frames)") {{frame.value}}
+              .col-xs-2
+                a(href="{{project.url}}", target="_blank")
+                  span.fa.fa-caret-right.fa-5x.pull-right
+      template([ngSwitchWhen]="true")
+        div.center
+          span.fa.fa-5x.fa-circle-o-notch.fa-spin(aria-hidden="true")

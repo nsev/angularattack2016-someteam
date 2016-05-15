@@ -28,7 +28,7 @@ export class ProjectComponent implements OnInit{
       this.auth = auth;
     });
 
-    this.project = new Project(0, "", "", [], []);
+    this.project = new Project(0, "", "", "", [], []);
 
     this.projectsFB = af.database.object('/projects');
 

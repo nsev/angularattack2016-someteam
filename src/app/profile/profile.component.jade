@@ -37,6 +37,9 @@ section#profile.container-fluid
                                 a(href="{{project.url}}", tager="_blank") {{project.url}}
                             .row.list-row
                               .col-xs-12
+                                p {{project.desc}}
+                            .row.list-row
+                              .col-xs-12
                                 span.label.label-primary.list-row-lb(*ngFor="let lang of objToArray(project.langs)") {{lang.value}}
                                 span.label.label-primary.list-row-lb(*ngFor="let frame of objToArray(project.frames)") {{frame.value}}
                           .col-xs-2
