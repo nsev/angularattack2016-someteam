@@ -13,13 +13,29 @@ section#profile.container-fluid
     .col-md-6
       section#user-projects
         .panel.panel-default
-          .panel-heading Own projects setup for review
+          .panel-heading Own projects marked for review 
+            button.btn.btn-default.btn-success.pull-right(type="button", (click)="addProject()") Add a project!
           .panel-body([ngSwitch]="ownProjects == null") 
             template([ngSwitchWhen]="true")
-              button.btn.btn-default.btn-success(type="button", (click)="addProject()") Add a project!
+              span No own projects yet!
             template([ngSwitchWhen]="false")
-              ul
-                li(*ngFor="")
+               ul.list-gropup.project-list-group
+                li.list-group-item.project-list-group-item(*ngFor="let project of ownProjects")
+                  .row
+                    .col-xs-10
+                      .row.list-row
+                        .col-xs-12
+                          .list-row-heading Name {{project.name}}
+                      .row.list-row
+                        .col-xs-12
+                          span Location :    
+                          a(href="{{project.url}}", tager="_blank") {{project.url}}
+                      .row.list-row
+                        .col-xs-12
+                          span.label.label-primary.list-row-lb(*ngFor="let lang of objToArray(project.langs)") {{lang.value}}
+                          span.label.label-primary.list-row-lb(*ngFor="let frame of objToArray(project.frames)") {{frame.value}}
+                    .col-xs-2
+                      span.fa.fa-caret-right.fa-5x.pull-right
     .col-md-6
       section#user-review-targets
         .panel.panel-default

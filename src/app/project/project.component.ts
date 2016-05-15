@@ -67,20 +67,23 @@ export class ProjectComponent implements OnInit{
   }
 
   onSubmit(project){
-    console.log("Submit called", project);
+    console.debug("Submit called", project);
     let promise = this.af.list('/projects').push(project);
 
-    promise.then((data)=>{
+    promise.then((data: any)=>{
       //this.auth might not be resolved..
-      console.log(data.key());
-      this.af.list('/users/' + this.auth.uid + '/projects').push(data.key());
+      let key = data.key();
+      let newProj : any = {};
+      newProj[key] = true;
+
+      this.af.object('/users/' + this.auth.uid + '/projects').update(newProj);
     }).catch((error)=>{
       console.error(error)
     });
   }
 
   ngOnInit(){
-    console.log("Init called for ProjectComponent");
+    console.debug("Init called for ProjectComponent");
   }
 
 }

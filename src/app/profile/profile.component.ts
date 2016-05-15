@@ -14,7 +14,9 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class ProfileComponent implements OnInit{ 
 
+  ownProjects : any[] = [];
   auth : any;
+  user : any;
   items: Observable<any[]>;
   langs: any[];
   frames: any[];
@@ -24,10 +26,22 @@ export class ProfileComponent implements OnInit{
   };
 
   constructor(public af : AngularFire, public router : Router){
-    this.af.auth.subscribe((auth) => {
+    this.af.auth.subscribe((auth:any) => {
       this.auth = auth;
-    });
 
+      //get the current users projects
+      this.af.database.list('/users/' + this.auth.uid + "/projects").subscribe((data:any)=>{
+        //loop through the projects for their keys
+        data.forEach((projectSmall)=>{
+          //query project data based on the saved keys in the users data and store it in the array
+          this.af.database.object('/projects/' + projectSmall.$key).subscribe((project:any)=>{
+            this.ownProjects.push(project);
+
+          });        
+        })
+      });
+
+    });
     this.subscribeToAvailableLangs();
     this.subscribeToAvailableFrames();
   }
@@ -53,8 +67,22 @@ export class ProfileComponent implements OnInit{
     this.router.navigate(['projects/new'])
   }
 
+  //should be a pipe....
+  objToArray(obj){
+    let arr = [];
+    for (var i in obj) {
+      if(obj.hasOwnProperty(i)){
+        arr.push({
+          key: i, 
+          value: obj[i]
+       });
+      }
+    }
+    return arr;
+  }
+
   ngOnInit(){ 
-    console.log("Init called for ProfileComponent");
+    console.debug("Init called for ProfileComponent");
     
   }
 }
