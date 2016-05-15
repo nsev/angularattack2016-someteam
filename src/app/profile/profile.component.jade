@@ -45,6 +45,8 @@ section#profile.container-fluid
                           .col-xs-2
                             a(href="{{project.url}}", target="_blank")
                               span.fa.fa-caret-right.fa-5x.pull-right
+                            a.hoverhand((click)="deleteProject(project.key)")
+                              span.fa.fa-trash.fa-5x.pull-right
     .col-md-6
       section#user-review-targets
         .panel.panel-default

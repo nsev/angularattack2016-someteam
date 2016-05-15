@@ -63,7 +63,6 @@ export class ProjectComponent implements OnInit{
         this.project[prop][value.$key] = value.$value;
       }
     }
-    console.log(this.project);
   }
 
   onSubmit(project){

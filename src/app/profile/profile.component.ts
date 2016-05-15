@@ -66,11 +66,13 @@ export class ProfileComponent implements OnInit{
         data.forEach((projectSmall)=>{
           //query project data based on the saved keys in the users data and store it in the array
           this.af.database.object('/projects/' + projectSmall.$key).subscribe((project:any)=>{
-            this.loading.projects = false;
-            tempProjects.push(project);
+            if(project != null){
+              project.key = projectSmall.$key;
+              tempProjects.push(project);
+            }
           });        
         })
-
+        this.loading.projects = false;
         this.ownProjects = tempProjects;
       });
 
@@ -109,6 +111,16 @@ export class ProfileComponent implements OnInit{
       }
     }
     return arr;
+  }
+
+  deleteProject(key){
+    let promise = this.af.database.list('/users/' + this.auth.uid + "/projects/" + key).remove();
+    // let promise = this.af.database.object('/projects/' + key).remove();
+    promise.then(()=>{
+      this.af.database.object('/projects/' + key).remove();
+    }).catch((error)=>{
+      console.error(error);
+    });
   }
 
   updateSelection(event, value, prop){
