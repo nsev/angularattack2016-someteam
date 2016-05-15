@@ -25,6 +25,7 @@ export class ProjectComponent implements OnInit{
   };
 
   constructor(public af : AngularFire){
+    this.alerts = [];
     this.af.auth.subscribe((auth) => {
       this.auth = auth;
     });
@@ -66,12 +67,16 @@ export class ProjectComponent implements OnInit{
     }
   }
 
-  // addAlert(type, message){
-  //   this.alerts.push({
-  //     type : type,
-  //     message: message
-  //   })
-  // };
+  addAlert(type, message){
+    this.alerts.push({
+      type : type,
+      message: message
+    })
+  };
+
+  closeAlert(i){
+    this.alerts.splice(i,1);
+  }
 
   onSubmit(project){
     console.debug("Submit called", project);
@@ -84,10 +89,10 @@ export class ProjectComponent implements OnInit{
       newProj[key] = true;
 
       this.af.object('/users/' + this.auth.uid + '/projects').update(newProj);
-      // this.addAlert("success", "Project saved");
+      this.addAlert("success", "Project saved");
     }).catch((error)=>{
       console.error(error);
-      // this.addAlert("danger", "Error saving project");
+      this.addAlert("danger", "Error saving project");
     });
   }
 
