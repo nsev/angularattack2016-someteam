@@ -16,11 +16,13 @@ export class NavbarComponent implements OnInit{
   constructor(public af : AngularFire){
     this.af.auth.subscribe((auth) => {
       this.auth = auth;
-      this.af.list('/users').update(auth.uid, {
-        provider: auth.provider,
-        name: auth.github.displayName,
-        username: auth.github.username
-      });
+      if(auth != null){
+        this.af.list('/users').update(auth.uid, {
+          provider: auth.provider,
+          name: auth.github.displayName,
+          username: auth.github.username
+        });
+      }
     });
   }
 

@@ -32,7 +32,9 @@ export class ProjectListComponent implements OnInit{
 
     this.af.auth.subscribe((auth:any) => {
       this.auth = auth;
-      this.subscribeToUser(this.auth.uid);      
+      if(auth != null){
+        this.subscribeToUser(this.auth.uid);      
+      }
     });
 
     this.subscribeToAvailableLangs();
@@ -69,6 +71,9 @@ export class ProjectListComponent implements OnInit{
 
   //TODO pipe this....
   filteredProjects(projects){
+    if(this.auth == null){
+      return projects;
+    }
     return projects.filter((project)=>{
       let ok = false;
       let tLangs = this.enabledFilters(this.user.langs);
@@ -97,7 +102,9 @@ export class ProjectListComponent implements OnInit{
   //TODO fix this... is ugly and then some
   enabledFilters(obj){
     let arr = this.objToArray(obj);
-
+    if(this.auth == null){
+      return arr;
+    }
     return arr.filter((filter)=>{
       return filter.value === true;
     }).map((enabledFilter)=>{

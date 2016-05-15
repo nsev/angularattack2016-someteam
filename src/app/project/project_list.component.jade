@@ -1,8 +1,8 @@
 section#project-list
   .row.list-row
     .col-sm-10.col-sm-offset-1
-      p.text-info Showing results for tags below. Change the settings in your profile.
-      div(*ngIf="!loading.user && !loading.langs && !loading.frames")
+      p.text-info(*ngIf="user != null") Showing results for tags below. Change the settings in your profile.
+      div(*ngIf="!loading.user && !loading.langs && !loading.frames && user != null")
         span.label.label-primary.list-row-lb(*ngFor="let lang of enabledFilters(user.langs)") {{lang.$value}}
         span.label.label-primary.list-row-lb(*ngFor="let frame of enabledFilters(user.frames)") {{frame.$value}}
   .row

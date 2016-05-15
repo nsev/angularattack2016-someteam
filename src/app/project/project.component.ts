@@ -14,6 +14,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 export class ProjectComponent implements OnInit{
 
   auth : any;
+  alerts : any[];
   projectsFB : any;
   project : Project;
   langs: any[];
@@ -65,6 +66,13 @@ export class ProjectComponent implements OnInit{
     }
   }
 
+  // addAlert(type, message){
+  //   this.alerts.push({
+  //     type : type,
+  //     message: message
+  //   })
+  // };
+
   onSubmit(project){
     console.debug("Submit called", project);
     let promise = this.af.list('/projects').push(project);
@@ -76,8 +84,10 @@ export class ProjectComponent implements OnInit{
       newProj[key] = true;
 
       this.af.object('/users/' + this.auth.uid + '/projects').update(newProj);
+      // this.addAlert("success", "Project saved");
     }).catch((error)=>{
-      console.error(error)
+      console.error(error);
+      // this.addAlert("danger", "Error saving project");
     });
   }
 
