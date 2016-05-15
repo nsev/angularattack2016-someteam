@@ -34,6 +34,6 @@ export class NavbarComponent implements OnInit{
   }
 
   ngOnInit(){
-    console.log("Init called for NavbarComponent");
+    console.debug("Init called for NavbarComponent");
   }
 }

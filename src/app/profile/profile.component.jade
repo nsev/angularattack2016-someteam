@@ -14,47 +14,56 @@ section#profile.container-fluid
       section#user-projects
         .panel.panel-default
           .panel-heading Own projects marked for review 
-            button.btn.btn-default.btn-success.pull-right(type="button", (click)="addProject()") Add a project!
-          .panel-body([ngSwitch]="ownProjects == null") 
-            template([ngSwitchWhen]="true")
-              span No own projects yet!
-            template([ngSwitchWhen]="false")
-               ul.list-gropup.project-list-group
-                li.list-group-item.project-list-group-item(*ngFor="let project of ownProjects")
-                  .row
-                    .col-xs-10
-                      .row.list-row
-                        .col-xs-12
-                          .list-row-heading Name {{project.name}}
-                      .row.list-row
-                        .col-xs-12
-                          span Location :    
-                          a(href="{{project.url}}", tager="_blank") {{project.url}}
-                      .row.list-row
-                        .col-xs-12
-                          span.label.label-primary.list-row-lb(*ngFor="let lang of objToArray(project.langs)") {{lang.value}}
-                          span.label.label-primary.list-row-lb(*ngFor="let frame of objToArray(project.frames)") {{frame.value}}
-                    .col-xs-2
-                      span.fa.fa-caret-right.fa-5x.pull-right
+          .panel-body
+            .row.control-row
+              .col-xs-12
+                button.btn.btn-default.btn-success.pull-right(type="button", (click)="addProject()") Add a project!
+            .row
+              .col-xs-12
+                span([ngSwitch]="ownProjects == null") 
+                  template([ngSwitchWhen]="true")
+                    span No own projects yet!
+                  template([ngSwitchWhen]="false")
+                     ul.list-gropup.project-list-group
+                      li.list-group-item.project-list-group-item(*ngFor="let project of ownProjects")
+                        .row
+                          .col-xs-10
+                            .row.list-row
+                              .col-xs-12
+                                .list-row-heading {{project.name}}
+                            .row.list-row
+                              .col-xs-12
+                                span Location :    
+                                a(href="{{project.url}}", tager="_blank") {{project.url}}
+                            .row.list-row
+                              .col-xs-12
+                                span.label.label-primary.list-row-lb(*ngFor="let lang of objToArray(project.langs)") {{lang.value}}
+                                span.label.label-primary.list-row-lb(*ngFor="let frame of objToArray(project.frames)") {{frame.value}}
+                          .col-xs-2
+                            a(href="{{project.url}}", target="_blank")
+                              span.fa.fa-caret-right.fa-5x.pull-right
     .col-md-6
       section#user-review-targets
         .panel.panel-default
           .panel-heading What do you want to review?
-          .panel-body([ngSwitch]="loading.langs || loading.frames") 
+          .panel-body([ngSwitch]="loading.langs || loading.frames || loading.user") 
             template([ngSwitchWhen]="false")
               .row
                 .col-sm-6
                   h4 Languages
                   div.checkbox(*ngFor="let lang of langs")
                     label
-                      input(type="checkbox", id="lang_cb_{{lang.$key}}", name="lang_cb_{{lang.$key}}") 
+                      input(type="checkbox", id="lang_cb_{{lang.$key}}", name="lang_cb_{{lang.$key}}", (change)="updateSelection($event, lang, 'langs')", [(ngModel)]="vm.langs[lang.$key]") 
                       span {{lang.$value}}
                 .col-sm-6
                   h4 Frames and libraries
                   div.checkbox(*ngFor="let frame of frames")
                     label
-                      input(type="checkbox", id="frame_cb_{{frame.$key}}", name="frame_cb_{{frame.$key}}") 
+                      input(type="checkbox", id="frame_cb_{{frame.$key}}", name="frame_cb_{{frame.$key}}", (change)="updateSelection($event, frame, 'frames')", [(ngModel)]="vm.frames[frame.$key]") 
                       span {{frame.$value}}
+              .row
+                .col-md-12
+                  button.btn.btn-default.btn-success.pull-right(type="button", (click)="saveReviewPreferences()") Save
             template([ngSwitchWhen]="true")
               div.center
                 span.fa.fa-2x.fa-circle-o-notch.fa-spin(aria-hidden="true")

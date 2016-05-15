@@ -24,7 +24,7 @@ export class ProjectListComponent implements OnInit{
   }
 
   ngOnInit(){
-    console.log("Init called for ProjectListComponent");
+    console.debug("Init called for ProjectListComponent");
   }
 
   //should be a pipe....
